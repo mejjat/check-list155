@@ -1,0 +1,259 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="mb-4">Nouvelle Checklist</h2>
+
+<form method="POST" class="needs-validation" novalidate>
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Informations Générales</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="date_controle" class="form-label">Date du contrôle</label>
+                    <input type="date" class="form-control" id="date_controle" name="date_controle" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="type_checklist" class="form-label">Type de Checklist</label>
+                    <select class="form-select" id="type_checklist" name="type_checklist" required>
+                        <option value="">Sélectionner...</option>
+                        <option value="reception">Réception</option>
+                        <option value="expedition">Expédition</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="responsable_electrique" class="form-label">Responsable électrique Engin</label>
+                    <input type="text" class="form-control" id="responsable_electrique" name="responsable_electrique">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="responsable_atelier" class="form-label">Responsable Atelier Engin</label>
+                    <input type="text" class="form-control" id="responsable_atelier" name="responsable_atelier">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="inspecteur_methode" class="form-label">Inspecteur Bureau de Méthode</label>
+                    <input type="text" class="form-control" id="inspecteur_methode" name="inspecteur_methode">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Informations Engin</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="categorie_engin" class="form-label">Catégorie d'engin</label>
+                    <select class="form-select" id="categorie_engin" name="categorie_engin" required>
+                        <option value="">Sélectionner...</option>
+                        <optgroup label="Bulls D11">
+                            <option value="T1">T1</option>
+                            <option value="T2">T2</option>
+                            <option value="T3">T3</option>
+                            <option value="T4">T4</option>
+                            <option value="T5">T5</option>
+                            <option value="T6">T6</option>
+                            <option value="T7">T7</option>
+                        </optgroup>
+                        <optgroup label="Loaders">
+                            <option value="992K">992K</option>
+                            <option value="994F1">994F1</option>
+                            <option value="994F2">994F2</option>
+                        </optgroup>
+                        <optgroup label="Drill">
+                            <option value="SKF1">SKF1</option>
+                            <option value="SKF2">SKF2</option>
+                            <option value="DKS">DKS</option>
+                        </optgroup>
+                        <optgroup label="Auxiliaires (AUX)">
+                            <option value="ARR_CAT">ARR CAT</option>
+                            <option value="NIV5">NIV5</option>
+                            <option value="NIV6">NIV6</option>
+                            <option value="NIV7">NIV7</option>
+                            <option value="PAYKOM1">PAYKOM1</option>
+                            <option value="PAYKOM2">PAYKOM2</option>
+                            <option value="PAYKOM3">PAYKOM3</option>
+                        </optgroup>
+                        <optgroup label="Bulls D9">
+                            <option value="R2">R2</option>
+                            <option value="R3">R3</option>
+                            <option value="R4">R4</option>
+                            <option value="R5">R5</option>
+                            <option value="R6">R6</option>
+                            <option value="R7">R7</option>
+                            <option value="R8">R8</option>
+                            <option value="R9">R9</option>
+                            <option value="R10">R10</option>
+                            <option value="R11">R11</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="type_revision" class="form-label">Type de révision</label>
+                    <select class="form-select" id="type_revision" name="type_revision" required>
+                        <option value="">Sélectionner...</option>
+                        <option value="generale">Révision générale</option>
+                        <option value="partielle">Révision partielle</option>
+                        <option value="mutee">Mutée d'un autre engin</option>
+                        <option value="exterieure">Révision extérieure</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="numero_serie_moteur" class="form-label">Numéro de série moteur</label>
+                    <input type="text" class="form-control" id="numero_serie_moteur" name="numero_serie_moteur" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="numero_serie_ecm" class="form-label">Numéro de série ECM moteur</label>
+                    <input type="text" class="form-control" id="numero_serie_ecm" name="numero_serie_ecm" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="hm_actuel" class="form-label">HM actuel de l'engin</label>
+                    <input type="number" step="0.1" class="form-control" id="hm_actuel" name="hm_actuel" required>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Contrôle des capteurs</h5>
+        </div>
+        <div class="card-body">
+            {% set capteurs = [
+                ('capteur_regime_moteur', 'Capteur de régime moteur'),
+                ('capteur_temp_liquide', 'Capteur de température liquide refroidissement'),
+                ('switch_temp_eau', 'Switch température d\'eau'),
+                ('palpeur_debit_liquide', 'Palpeur débit liquide refroidissement'),
+                ('capteur_pression_huile', 'Capteur de pression d\'huile moteur'),
+                ('capteur_niveau_huile', 'Capteur de niveau d\'huile moteur'),
+                ('capteur_pression_admission', 'Capteur de pression collecteur d\'admission'),
+                ('capteur_temp_admission', 'Capteur de température d\'air collecteur admission'),
+                ('capteur_temp_echap_droit', 'Capteur de température d\'échappement droit'),
+                ('capteur_temp_echap_gauche', 'Capteur de température d\'échappement gauche'),
+                ('capteur_temp_air_ambiant', 'Capteur de température d\'air ambiant'),
+                ('capteur_pression_gasoil', 'Capteur de pression de gasoil'),
+                ('switch_pression_gasoil', 'Switch de pression de gasoil'),
+                ('capteur_pression_carter', 'Capteur de pression Carter (Crankcase)'),
+                ('switch_pression_huile', 'Switch de pression huile moteur'),
+                ('capteur_regime_primaire', 'Capteur de régime primaire (Timing)'),
+                ('capteur_regime_secondaire', 'Capteur de régime secondaire (Calibration)'),
+                ('capteur_vitesse_convertisseur', 'Capteur de vitesse convertisseur'),
+                ('capteur_temp_convertisseur', 'Capteur de température convertisseur'),
+                ('capteur_pression_atmo', 'Capteur de pression atmosphérique')
+            ] %}
+            
+            {% for id, label in capteurs %}
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">{{ label }}</label>
+                </div>
+                <div class="col-md-6">
+                    <select class="form-select" name="{{ id }}">
+                        <option value="NA" selected>NA</option>
+                        <option value="manquant">Manquant</option>
+                        <option value="neuf">Neuf</option>
+                        <option value="bon">Bon</option>
+                        <option value="mauvais">Mauvais</option>
+                    </select>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Contrôle du circuit de démarrage</h5>
+        </div>
+        <div class="card-body">
+            {% set demarrage = [
+                ('demarreur_1', 'Démarreur 1'),
+                ('demarreur_2', 'Démarreur 2'),
+                ('alternateur_charge', 'Alternateur de charge'),
+                ('courroie_alternateur', 'Courroie d\'alternateur de charge'),
+                ('tendeur_courroie', 'Tendeur de courroie'),
+                ('etat_tension_courroie', 'État de tension courroie')
+            ] %}
+            
+            {% for id, label in demarrage %}
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">{{ label }}</label>
+                </div>
+                <div class="col-md-6">
+                    <select class="form-select" name="{{ id }}">
+                        <option value="NA" selected>NA</option>
+                        <option value="manquant">Manquant</option>
+                        <option value="neuf">Neuf</option>
+                        <option value="bon">Bon</option>
+                        <option value="mauvais">Mauvais</option>
+                    </select>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Contrôle branchement et câblage</h5>
+        </div>
+        <div class="card-body">
+            {% set cablage = [
+                ('faisceau_electrique', 'Faisceau électrique du moteur thermique'),
+                ('branchement_electrique', 'Branchement électrique des capteurs et switch'),
+                ('attachement_isolation', 'Attachement et isolation du faisceau électrique')
+            ] %}
+            
+            {% for id, label in cablage %}
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">{{ label }}</label>
+                </div>
+                <div class="col-md-6">
+                    <select class="form-select" name="{{ id }}">
+                        <option value="NA" selected>NA</option>
+                        <option value="manquant">Manquant</option>
+                        <option value="neuf">Neuf</option>
+                        <option value="bon">Bon</option>
+                        <option value="mauvais">Mauvais</option>
+                    </select>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Notes importantes</h5>
+        </div>
+        <div class="card-body">
+            <div class="alert alert-info">
+                <h6>Les composants à remplacer après un certain nombre d'heures de marche :</h6>
+                <p><strong>6000H :</strong> niveau huile moteur, pression huile moteur, Palpeur circulation eau, Démarreurs et alternateur de charge.</p>
+                <p><strong>12000H :</strong> Autres composants électriques.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save"></i> Enregistrer
+            </button>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">
+                <i class="fas fa-times"></i> Annuler
+            </a>
+        </div>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,26 @@
+{
+  "name": "revision-moteur-155e",
+  "version": "1.0.0",
+  "description": "Application for motor revision tracking and documentation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mejjat/check-list-155.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/mejjat/check-list-155/issues"
+  },
+  "homepage": "https://github.com/mejjat/check-list-155#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
