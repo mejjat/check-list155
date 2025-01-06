@@ -1,20 +1,22 @@
-# Revision Moteur 155E
+# Checklist Management Application
 
-Application web Flask pour la gestion des révisions de moteurs thermiques.
+## Project Overview
+This is a web-based checklist management application built with Flask, allowing users to create, edit, view, and manage checklists.
 
-## Fonctionnalités
+## Features
+- Create new checklists
+- Edit existing checklists
+- View completed checklists
+- Generate PDF reports
 
-- Gestion des checklists de révision
-- Génération de rapports PDF
-- Suivi des statuts
-- Interface responsive
-
-## Prérequis
-
+## Prerequisites
 - Python 3.8+
-- wkhtmltopdf
-- Navigateur web moderne
+- pip (Python package manager)
+- wkhtmltopdf (for PDF generation)
 
-## Installation
+## Setup Instructions
 
-1. Cloner le repository
+### 1. Clone the Repository
+```bash
+git clone https://github.com/yourusername/checklist-management-app.git
+cd checklist-management-app
